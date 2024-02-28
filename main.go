@@ -60,7 +60,7 @@ func getUserInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	//otsuda nachalo
 	var userStatus string
-	if sr.Entries[0].GetAttributeValue("userAccountControl") == "66048" {
+	if sr.Entries[0].GetAttributeValue("userAccountControl") == "66048" || sr.Entries[0].GetAttributeValue("userAccountControl") == "512" {
 		userStatus = "active"
 	} else {
 		userStatus = "disabled"
@@ -69,9 +69,9 @@ func getUserInfo(w http.ResponseWriter, r *http.Request) {
 	user := map[string]string{
 		"firstName":     sr.Entries[0].GetAttributeValue("cn"),
 		"login":         sr.Entries[0].GetAttributeValue("userPrincipalName"),
-		"IPPhone":       sr.Entries[0].GetAttributeValue("ipPhone"),
+		"ipphone":       sr.Entries[0].GetAttributeValue("ipPhone"),
 		"email":         sr.Entries[0].GetAttributeValue("mail"),
-		"Active status": userStatus,
+		"active_status": userStatus,
 	}
 
 	jsonData, err := json.Marshal(user)
