@@ -1,1 +1,2 @@
-ttset
+api for 1C-client to synchronize users with LDAP and fills in additional information, for example phone, email, etc.
+also returns the user's status in the domain (active or not)
