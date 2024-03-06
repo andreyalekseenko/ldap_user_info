@@ -43,8 +43,8 @@ func getUserInfo(w http.ResponseWriter, r *http.Request) {
 	searchRequest := ldap.NewSearchRequest(
 		ldapSearchBase,
 		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 0, false,
-		"(&(objectClass=user)(cn="+username+"))",
-		[]string{"cn", "userPrincipalName", "ipPhone", "userAccountControl", "mail"},
+		"(&(objectClass=user)(sAMAccountName="+username+"))",
+		[]string{"name", "ipPhone", "userAccountControl", "mail"},
 		nil,
 	)
 
@@ -67,8 +67,8 @@ func getUserInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := map[string]string{
-		"firstName":     sr.Entries[0].GetAttributeValue("cn"),
-		"login":         sr.Entries[0].GetAttributeValue("userPrincipalName"),
+		"Name": sr.Entries[0].GetAttributeValue("name"),
+		//"login":         sr.Entries[0].GetAttributeValue("userPrincipalName"),
 		"ipphone":       sr.Entries[0].GetAttributeValue("ipPhone"),
 		"email":         sr.Entries[0].GetAttributeValue("mail"),
 		"active_status": userStatus,
