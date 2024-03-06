@@ -34,7 +34,7 @@ func getUserInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	defer l.Close()
 
-	err = l.Bind("cn=ldap_search2,dc=mag-rf,dc=ru", "a32008TYlk")
+	err = l.Bind("cn=ldap_search2,dc=mag-rf,dc=ru", "password")
 	if err != nil {
 		http.Error(w, "Error binding to LDAP server", http.StatusInternalServerError)
 		return
